@@ -1,0 +1,25 @@
+{
+    "name": "frugle",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "cd ./src/frontend && next dev",
+        "build": "cd ./src/frontend && next build",
+        "start": "cd ./src/frontend && next start",
+        "lint": "cd ./src/frontend && next lint"
+    },
+    "dependencies": {
+        "axios": "^0.27.2",
+        "cheerio": "^1.0.0-rc.11",
+        "next": "12.1.6",
+        "react": "18.1.0",
+        "react-dom": "18.1.0",
+        "request": "^2.88.2",
+        "uuidv4": "^6.2.13"
+    },
+    "devDependencies": {
+        "eslint": "8.16.0",
+        "eslint-config-next": "12.1.6",
+        "sass": "^1.52.1"
+    }
+}

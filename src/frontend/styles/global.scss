@@ -1,0 +1,340 @@
+/**
+ * @author 684171 & 685701
+ */
+
+@use "sass:color";
+
+@import "./colors.scss";
+
+#__next, #app, html, body {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    background: $background-color;
+    color: $text-color;
+    font-family: Helvetica, Arial, sans-serif;
+    text-align: center;
+}
+
+@mixin disable-select {
+    user-select: none; /* supported by Chrome and Opera */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */ 
+}
+
+@mixin disable-drag {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+}
+
+#frugle {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+#title {
+    @include disable-select();
+    cursor: default;
+    margin: 128px 0px 32px;
+    font-size: 96px;
+    font-weight: bold;
+}
+
+@mixin border-shadow {
+    box-shadow: 4px 8px 16px 4px color.adjust($search-unfocused-color, $alpha: -0.8);
+}
+
+#border-shadow-wrapper {
+    @include border-shadow();
+    border-radius: 4px;
+}
+
+#container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, Helvetica, sans-serif;
+
+    fieldset {
+        border: none;
+        outline: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    #search, #address {
+        width: 40vh;
+        height: 50px;
+        padding: 0px 16px;
+        border: none;
+        display: flex;
+        align-items: center;
+    
+        input[type=text] {
+            width: 100%;
+            border: none;
+            padding: 0;
+            margin: 0;
+            font-size: 16px;
+            outline: none !important;
+            background: transparent;
+
+            &:focus, &:focus-visible {
+                border: none;
+            }
+        
+            &::placeholder {
+                color: $search-placeholder-color;
+            }
+        }
+
+        button[type=submit] {
+            width: 20px;
+            height: 50px;
+            margin: 0 4px;
+            padding: 0;
+            border: none;
+            background: transparent;
+            background-size: 20px 50px;
+            opacity: 60%;
+            
+            &#search-icon {
+                background-image: url(../public/images/search-icon.svg);
+                cursor: pointer;
+            }
+            
+            &#address-icon {
+                background-image: url(../public/images/address-icon.svg);
+            }
+        }
+    }
+
+    #autocomplete-address-box {
+        margin: 0;
+        border-radius: 4px;
+        display: flex;
+        flex-direction: column;
+
+        #autocomplete-address-option-wrapper {
+            width: 40vh;
+            height: 50px;
+            padding: 0px 16px;
+            background: $text-input-background-color;
+
+            #autocomplete-address-option {
+                width: 100%;
+                padding: 0;
+                border: none;
+                margin: 0;
+                display: flex;
+                align-items: center;
+                background: transparent;
+                cursor: pointer;
+    
+                #autocomplete-address-data {
+                    width: 100%;
+                    display: block;
+                    text-align: left;
+    
+                    #line-one {
+                        font-weight: bold;
+                        font-size: 16px;
+                    }
+    
+                    #line-two {
+                        font-size: 12px;
+                        opacity: 80%;
+                    }
+                    
+                }
+    
+                svg {
+                    margin: 0px 4px;
+                    width: 20px;
+                    height: 50px;
+                    opacity: 60%;
+                }
+            }
+
+            &:hover {
+                background: $address-hovor-color;
+            }
+        }
+    }
+
+    #search-results-box {
+        width: 60%;
+        margin: 48px 0 64px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        
+        #search-result-option {
+            width: 10vw;
+            height: 10vw;
+            padding: 4px;
+            margin: 12px 16px;
+            border: none;
+            background: none;
+            @include border-shadow();
+            border-radius: 8px;
+            
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            
+            cursor: pointer;
+            
+            @include disable-select();
+
+            #store {
+                width: 100%;
+                font-weight: bold;
+                font-size: 1.5em;
+                text-align: center;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            
+            #name {
+                width: 100%;
+                font-size: 1.25em;
+                text-align: center;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            
+            img {
+                width: 75%;
+                height: 75%;
+                @include disable-drag();              
+            }
+
+            &.selected {
+                border: 1.5px solid $search-focused-color;
+            }
+
+            &.disabled {
+                pointer-events: none;
+                cursor: not-allowed;
+            }
+        }
+    }
+
+    #search-button {
+        width: 12vw;
+        height: 40px;
+        border: none;
+        margin: 0;
+        padding: 0;
+        position: fixed;
+        bottom: 16px;
+        background: $text-input-background-color;
+        color: $text-color;
+        font-size: 1em;
+        text-align: center;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        
+        @include border-shadow();
+        border-radius: 4px;
+
+        cursor: pointer;
+
+        @include disable-select();
+
+        &:hover {
+            background: $search-button-hover-color
+        }
+
+        &:disabled {
+            background: $text-input-background-color;
+            cursor: not-allowed;
+        }
+    }
+
+    #price-results-box {
+        width: 25vw;
+        margin: 48px 0 64px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+
+        #price-result-option {
+            width: 12vw;
+            height: 100%;
+            padding: 16px;
+            margin: 12px 16px;
+            border: none;
+            background: none;
+            @include border-shadow();
+            border-radius: 8px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            cursor: pointer;
+
+            #store-rank {
+                width: 100%;
+                margin-bottom: 8px;
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+            }
+            
+            #rank {
+                padding-right: 4px;
+                font-weight: bold;
+                font-size: 1.5em;
+            }
+            
+            #store {
+                width: 90%;
+                font-weight: bold;
+                font-size: 1.5em;
+                text-align: center;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            
+            #name {
+                width: 100%;
+                margin-top: 4px;
+                font-size: 1.25em;
+                text-align: center;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            
+            #price {
+                margin-top: 2.5px;
+                font-size: 1.125em;
+                text-align: center;
+            }
+            
+            img {
+                width: 75%;
+                height: 75%;
+                @include disable-drag();              
+            }
+        }
+    }
+}
